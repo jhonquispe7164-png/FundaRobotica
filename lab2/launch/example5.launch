@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+ <let name="count_value" value="50"/>
+
+ <node pkg="lab2" name="Publisher" exec="publisher" output="screen" >
+  <param name="count" value="$(var count_value)"/>
+ </node>
+</launch>
+
+<!--En el siguiente lanzador se declara una argumento y un valor inicial por defecto, que no puede
+ser modificado una vez declarado dentro del lanzador. -->

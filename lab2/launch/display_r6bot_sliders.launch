@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <let name="urdf_path" value = "$(find-pkg-share lab2)/urdf/r6bot_description.urdf.xacro" />
+
+  <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui" />
+
+  <node pkg="robot_state_publisher" exec="robot_state_publisher">
+    <param name="robot_description" value="$(command 'xacro $(var urdf_path)')"/>
+  </node>
+
+  <node pkg="rviz2" exec="rviz2" name="rviz2" args="-d $(find-pkg-share lab2)/config/view_robot.rviz" />
+</launch>
+
+<!--
+https://docs.ros.org/en/noetic/api/sensor_msgs/html/index-msg.html
+-->
