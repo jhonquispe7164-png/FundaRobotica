@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+import numpy as np                 # para trabajar con arreglos y vectores numéricos
+import kinpy as kp                # librería kinpy para usar el modelo URDF y resolver cinemática
+from scipy.spatial.transform import Rotation as R   # para manejar orientaciones y conversiones de Euler a cuaterniones
+
+# construye la cadena cinemática serial del UR5 a partir del archivo URDF
+# se indica cuál es el link base y cuál es el efector final
+chain = kp.build_serial_chain_from_urdf(open("/home/cristhian/lab_ws/src/lab6/urdf/ur5_robot.urdf"), root_link_name="base_link", end_link_name="ee_link")
+
+# posición deseada del efector final en coordenadas cartesianas [x, y, z]
+target_pos = np.array([0.5, 0.0, 0.5])
+
+# orientación deseada en ángulos roll, pitch, yaw
+desired_rpy = (0.0, 0.0, 0.0)
+
+# convierte la orientación deseada desde Euler a un objeto de rotación
+r = R.from_euler('xyz', desired_rpy)
+
+# obtiene el cuaternión en formato [x, y, z, w]
+quat_xyzw = r.as_quat() # [x, y, z, w]
+
+# kinpy trabaja el cuaternión en formato [w, x, y, z], por eso aquí se reordena
+quat_wxyz = np.array([quat_xyzw[3], quat_xyzw[0], quat_xyzw[1], quat_xyzw[2]])
+
+# construye la transformación deseada del efector final con orientación y posición
+target_transform = kp.Transform(rot=quat_wxyz, pos=target_pos)
+
+# configuración articular inicial usada como semilla para buscar la solución de cinemática inversa
+initial_guess_up = [0.0, -1.0, 1.0, 0.0, 0.0, 0.0]
+
+# resuelve la cinemática inversa para encontrar los valores articulares que lleven al efector
+# a la posición y orientación deseadas
+solution = chain.inverse_kinematics(target_transform, initial_guess_up)
+
+# imprime en pantalla la solución articular encontrada
+print(solution)
