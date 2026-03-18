@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+ <arg name="count_value" default="50"/>
+
+ <node pkg="lab2" name="Publisher" exec="publisher" output="screen" >
+  <param name="count" value="$(var count_value)"/>
+ </node>
+</launch>
+
+
+<!--En el siguiente lanzador se declara una argumento y un valor inicial. En este caso, este se puede
+modificar cuando se llama lanzador por el terminal. En caso no se modifique en el terminal el
+valor de la variable, está asumirá el valor asignado en el lanzador.
+
+$ ros2 launch lab2 example6.launch
+
+
+En caso se quisiera especificar el valor de la variable count_value, se ejecutaría con el siguiente
+comando:
+$ ros2 launch lab2 example6.launch count_value:=70
+
+
+-->

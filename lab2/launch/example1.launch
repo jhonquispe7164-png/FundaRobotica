@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="lab1" name="Publisher" exec="nodo_pub" output="screen" />
+</launch>
+
+<!--
+para lanzar un launch: $ ros2 launch lab2 example6.launch
+
+Cada parte significa esto: pkg es el paquete donde está el ejecutable; 
+exec es qué ejecutable vas a correr; name es con qué nombre aparecerá el 
+nodo en ROS 2; y output le dice al launch dónde mostrar la salida del proceso.
+  
+  # solo lanza el publicador 
+ - exec = qué corre nombre del nodo
+ - name = cómo se llama ese nodo dentro de ROS definir que nombre aleatorio,
+          Es el nombre con el que ROS ve al nodo cuando haces cosas como
+ - output = dónde ves lo que imprime lo que se va ver en el terminal
+-->

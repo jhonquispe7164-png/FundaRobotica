@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Define robot_description by running xacro -->
+  <let name="robot_description"
+       value="$(command '$(find-exec xacro) $(find-pkg-share lab3)/urdf/robot_gz_control.urdf use_ros2_control:=true sim_mode:=true')"/>
+
+  <!-- Robot State Publisher -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+    <param name="use_sim_time" value="true"/>
+    <param name="robot_description" value="$(var robot_description)"/>
+  </node>
+
+  <!-- Start Ignition Gazebo with empty world -->
+  <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+    <arg name="gz_args" value="-r -v 4 empty.sdf"/>
+  </include>
+
+  <!-- Spawn the robot into Ignition -->
+  <node pkg="ros_gz_sim" exec="create" name="spawn_my_robot" output="screen" 
+        args="-name robot -topic robot_description"/>
+  
+  <!-- Controllers -->
+  <node pkg="controller_manager" exec="spawner" args="forward_position_controller --controller-manager /controller_manager"/>
+  
+  <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster --controller-manager /controller_manager"/>      
+
+</launch>

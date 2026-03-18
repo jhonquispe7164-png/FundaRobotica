@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- llamar al lanzador indicando su ubicación, es decir al publicador,
+  este lo que hace es, primero lanza el publicador luego el suscriptor -->
+
+ <include file="$(find-pkg-share lab2)/launch/example1.launch" /> 
+ <node pkg="lab1" name="Subscriber" exec="nodo_sub" />
+</launch>

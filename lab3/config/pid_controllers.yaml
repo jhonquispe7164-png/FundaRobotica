@@ -1,0 +1,21 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 30
+    
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+      
+    pid_controller:
+      type: pid_controller/PidController
+
+pid_controller:
+  ros__parameters:
+    dof_names:
+      - pan_joint
+      - tilt_joint
+    command_interface: position
+    reference_and_state_interfaces: ["position"]
+    gains:
+      pan_joint: {p: 0.2, i: 0.01, d: 0.0001, i_clamp_max: 5.0, i_clamp_min: -5.0, feedforward_gain: 1.0}
+      tilt_joint: {p: 0.2, i: 0.01, d: 0.0001, i_clamp_max: 5.0, i_clamp_min: -5.0, feedforward_gain: 1.0}
+
