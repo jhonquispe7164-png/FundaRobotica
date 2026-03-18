@@ -1,7 +1,0 @@
-#!/usr/bin/env python3
-import numpy as np
-# matriz
-if __name__ == "__main__": # Indica que inicia el programa principal
- lista = [1, 2, 3, 4, 5] # Crear un arreglo a partir de una lista
- arreglo = np.array(lista)
- print(arreglo)
