@@ -1,0 +1,5 @@
+int32 target_zone      # Goal (zona de lanzamiento es un int32 del 1-20)
+---
+bool success           # Result (true o false si llego o no a la zona objetivo)
+---
+int32 difference       # Feedback (la diferencia entre la zona de lazamiento y la zona actual: el resultado int32)
