@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Define robot_description by running xacro -->
+  <let name="robot_description"
+       value="$(command '$(find-exec xacro) $(find-pkg-share lab3)/urdf/robot_gazebo_control.urdf use_ros2_control:=true sim_mode:=true')"/>
+
+  <!-- Robot State Publisher -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+    <param name="use_sim_time" value="true"/>
+    <param name="robot_description" value="$(var robot_description)"/>
+  </node>
+
+  <!-- Gazebo with parameters -->
+  <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
+    <arg name="extra_gazebo_args" value="--ros-args --params-file $(find-pkg-share lab3)/config/gazebo_params.yaml"/>
+  </include>
+
+  <!-- Spawn entity -->
+  <node pkg="gazebo_ros" exec="spawn_entity.py" output="screen"
+        args="-topic robot_description -entity my_bot"/>
+
+  <!-- Controllers -->
+  <!--node pkg="controller_manager" exec="spawner" args="forward_position_controller"/-->
+  
+  <node pkg="controller_manager" exec="spawner" args="pid_controller"/>      
+
+  <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster"/>
+
+</launch>

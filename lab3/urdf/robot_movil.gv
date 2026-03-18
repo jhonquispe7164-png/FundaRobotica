@@ -1,0 +1,14 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"rueda_derecha" [label="rueda_derecha"];
+"rueda_izquierda" [label="rueda_izquierda"];
+"pan_link" [label="pan_link"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "joint_derecho" [label="xyz: 0 0.14 0 \nrpy: 0 -0 0"]
+"joint_derecho" -> "rueda_derecha"
+"base_link" -> "joint_izquierdo" [label="xyz: 0 -0.14 0 \nrpy: 0 -0 0"]
+"joint_izquierdo" -> "rueda_izquierda"
+"base_link" -> "pan_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"pan_joint" -> "pan_link"
+}

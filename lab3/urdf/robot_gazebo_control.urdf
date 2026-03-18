@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<robot name="robot">
+
+  <!-- Color of materials -->
+  <material name="yellow">
+    <color rgba="1 1 0 1"/>
+  </material>
+  <material name="blue">
+    <color rgba="0 0 1 1"/>
+  </material>
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.01" radius="0.2"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="yellow" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.01" radius="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="1.0" />
+    </inertial>
+  </link>
+  <gazebo reference="base_link">
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <joint name="pan_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="pan_link"/>
+    <origin xyz="0 0 0"/>
+    <axis xyz="0 0 1" />
+    <limit effort="300" velocity="0.1"/>
+    <dynamics damping="50" friction="1"/>
+  </joint>
+
+  <link name="pan_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.4" radius="0.04"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
+      <material name="blue" />
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
+      <geometry>
+        <cylinder length="0.4" radius="0.04"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="1.0" />
+    </inertial>
+  </link>
+  <gazebo reference="pan_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <joint name="tilt_joint" type="continuous">
+    <parent link="pan_link"/>
+    <child link="tilt_link"/>
+    <origin xyz="0 0 0.4"/>
+    <axis xyz="0 1 0" />
+    <limit effort="300" velocity="0.1"/>
+    <dynamics damping="50" friction="1"/>
+  </joint>
+
+  <link name="tilt_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.4" radius="0.04"/>
+      </geometry>
+      <origin rpy="0 1.57 0" xyz="0 0 0"/>
+      <material name="red" />
+    </visual>
+    <collision>
+      <origin rpy="0 1.57 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.4" radius="0.04"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="1.0" />
+    </inertial>
+  </link>
+  <gazebo reference="tilt_link">
+    <material>Gazebo/White</material>
+  </gazebo>
+  
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="pan_joint">
+      <command_interface name="position">
+        <param name="min">-3.1</param>
+        <param name="max">3.1</param>
+      </command_interface>
+      <state_interface name="position"/>
+    </joint>
+    <joint name="tilt_joint">
+      <command_interface name="position">
+        <param name="min">-0.85</param>
+        <param name="max">0.85</param>
+      </command_interface>
+      <state_interface name="position"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find lab3)/config/pid_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+</robot>
