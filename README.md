@@ -1,2 +1,2 @@
-# fundamentos-de-Rob-tica
+# fundamentos-de-Robotica
 Laboratorios
