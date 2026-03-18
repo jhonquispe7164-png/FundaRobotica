@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<launch>
- <group>
-  <push_ros_namespace namespace="example" /> <!-- se ejecutaran en un grupo -->
-  <node pkg="lab1" name="Publisher" exec="nodo_pub" output="screen" />
-  <node pkg="lab2" name="Subscriber" exec="subscriber" output="screen" />
- </group>
-</launch>

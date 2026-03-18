@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-    <node pkg="lab2" exec="nodo_joint_tras2" name="nodo_joint_tras2" output="screen">
-        <param name="angles_file" value="$(find-pkg-share lab2)/config/joints_init.xml"/>
-    </node>
-</launch>
