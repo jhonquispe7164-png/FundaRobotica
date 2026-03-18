@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+
+# para ejecutar el código cuando el terminal se ubique dentro de la carpeta de origen 
+# cristhian@HP-Pavilion:~/lab_ws/src/lab1/lab1$ 
+
+if __name__ == "__main__": # Indica que inicia el programa principal
+	print("Programa basico Fundamentos robotica") # Imprime el mensaje
+
