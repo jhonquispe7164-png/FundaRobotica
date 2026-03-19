@@ -6,7 +6,7 @@ Repositorio con el desarrollo de los laboratorios del curso **Fundamentos de Rob
 
 En este repositorio se recopilan los laboratorios realizados durante el curso, enfocados en el uso de **Ubuntu, Python, ROS 2, URDF, cinemática y dinámica de robots**, tanto en simulación como en aplicaciones prácticas.
 
-## Contenido del repositorio
+## Contenido
 
 Los laboratorios desarrollados son los siguientes:
 
